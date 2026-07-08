@@ -113,25 +113,25 @@ class FalixNodesRenewal:
                 time.sleep(5)
 
                 # 同意数据收集
-                cookie_btns = [
-                    '//button[contains(., "Continue with Recommended Cookies")]',
-                    '//button[contains(., "Recommended Cookies")]',
-                    '//button[contains(., "Accept")]',
-                    '//button[contains(., "I Agree")]',
-                    '//button[contains(., "Consent")]',
-                    '//button[contains(., "Got it")]',
-                    '//button[contains(., "Accept all")]',
-                    '//button[contains(., "visit the site")]',
-                ]
+                cookie_xpath = '''
+                //*[contains(.,"Accept all")
+                or contains(.,"visit the site")
+                or contains(.,"Recommended Cookies")
+                or contains(.,"Continue with Recommended Cookies")]
+                '''
+                # 默认页面
+                if sb.is_element_present(cookie_xpath):
+                    sb.js_click(cookie_xpath)
 
-                for btn in cookie_btns:
-                    if sb.is_element_present(btn):
-                        try:
-                            sb.click(btn)
-                            self.log("🍪 已关闭 Cookie")
+                # iframe
+                for frame in sb.find_elements("iframe"):
+                    try:
+                        sb.driver.switch_to.frame(frame)
+                        if sb.is_element_present(cookie_xpath):
+                            sb.js_click(cookie_xpath)
                             break
-                        except:
-                            pass
+                    finally:
+                        sb.driver.switch_to.default_content()
 
                 before = sb.get_text("#timer-page-countdown") # Renew前剩余时间
 
