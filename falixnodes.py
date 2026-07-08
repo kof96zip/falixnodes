@@ -137,7 +137,7 @@ class FalixNodesRenewal:
                 sb.click("button.auth-submit-btn")
                 time.sleep(5)
 
-               login_screenshot = f"{self.screenshot_dir}/login.png"
+                login_screenshot = f"{self.screenshot_dir}/login.png"
                 sb.save_screenshot(login_screenshot)
                 self.send_telegram_notify("✅邮箱密码登录完毕", login_screenshot)
 
