@@ -44,7 +44,7 @@ jobs:
     - name: 运行脚本
       env:
         PYTHONIOENCODING: utf-8
-        SERVERNUM: ${{ secrets.SERVERNUM }}
+        NUM: ${{ secrets.NUM }}
         EMAIL: ${{ secrets.EMAIL }}
         PASSWORD: ${{ secrets.PASSWORD }}
         TG_TOKEN: ${{ secrets.TG_TOKEN }}
