@@ -146,13 +146,21 @@ class FalixNodesRenewal:
                 sb.click("#timer-page-btn")
                 time.sleep(1)
                 self.log("✅ 点击添加时间/Addtime完毕")
-                time.sleep(2)
+                time.sleep(3)
+
+                addtime_screenshot = f"{self.screenshot_dir}/addtime.png"
+                sb.save_screenshot(addtime_screenshot)
+                self.send_telegram_notify("✅已点击addtime", addtime_screenshot)                
 
                 self.log("🖱️ 点击观看广告/WatchAD")
                 sb.wait_for_element_visible("#watchAdBtn", timeout=10)
                 sb.click("#watchAdBtn")
                 time.sleep(15)
                 self.log("✅ 点击观看广告/WatchAD完毕")
+
+                watchad_screenshot = f"{self.screenshot_dir}/watchad.png"
+                sb.save_screenshot(watchad_screenshot)
+                self.send_telegram_notify("✅已点击watchad", addtime_screenshot)               
 
                 # 通常成功后会返回服务器面板登录页面,因为没有cookies
                 click_screenshot = f"{self.screenshot_dir}/click.png"
