@@ -114,6 +114,7 @@ class FalixNodesRenewal:
                 self.log("🔗 访问登录页面并尝试登录...")
                 sb.uc_open_with_reconnect(LOGIN, reconnect_time=25)
                 time.sleep(5)
+                sb.execute_script("window.scrollBy(0,1000);")
                 self.log("⏳ 开始登录验证Cloudflare")
                 cf_indicators = [
                     "verify you are human",
