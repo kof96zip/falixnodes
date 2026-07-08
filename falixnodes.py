@@ -111,6 +111,28 @@ class FalixNodesRenewal:
                 self.log("🔗 访问目标页面...")
                 sb.uc_open_with_reconnect(TAGET, reconnect_time=25)
                 time.sleep(5)
+
+                # 同意数据收集
+                cookie_btns = [
+                    '//button[contains(., "Continue with Recommended Cookies")]',
+                    '//button[contains(., "Recommended Cookies")]',
+                    '//button[contains(., "Accept")]',
+                    '//button[contains(., "I Agree")]',
+                    '//button[contains(., "Consent")]',
+                    '//button[contains(., "Got it")]',
+                    '//button[contains(., "Accept all")]',
+                    '//button[contains(., "visit the site")]',
+                ]
+
+                for btn in cookie_btns:
+                    if sb.is_element_present(btn):
+                        try:
+                            sb.click(btn)
+                            self.log("🍪 已关闭 Cookie")
+                            break
+                        except:
+                            pass
+
                 before = sb.get_text("#timer-page-countdown") # Renew前剩余时间
 
                 # 3. 验证Cloudflare
