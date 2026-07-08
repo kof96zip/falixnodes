@@ -153,8 +153,10 @@ class FalixNodesRenewal:
                 self.send_telegram_notify("✅已点击addtime", addtime_screenshot)                
 
                 self.log("🖱️ 点击观看广告/WatchAD")
-                sb.wait_for_element_visible("#watchAdBtn", timeout=10)
-                sb.click("#watchAdBtn")
+                if sb.is_element_visible("#watchAdBtn"):
+                    sb.click("#watchAdBtn")
+                else:
+                    self.log("✅ 无需观看广告/WatchAD")
                 time.sleep(15)
                 self.log("✅ 点击观看广告/WatchAD完毕")
 
