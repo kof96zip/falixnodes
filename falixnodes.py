@@ -133,8 +133,8 @@ class FalixNodesRenewal:
                     if not any(x in page_lower for x in cf_indicators):
                         self.log("✅Cloudflare验证已通过")
                         break
-                sb.type("#email-address", "your_email@example.com")
-                sb.type("#password", "your_password")
+                sb.type("#email-address", EMAIL)
+                sb.type("#password", PASSWORD)
                 sb.click("button.auth-submit-btn")
                 time.sleep(5)
 
