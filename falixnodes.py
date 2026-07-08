@@ -112,7 +112,13 @@ class FalixNodesRenewal:
                 sb.uc_open_with_reconnect(TAGET, reconnect_time=25)
                 time.sleep(5)
 
-                before = sb.get_text("#timer-page-countdown") # Renew前剩余时间
+                if sb.is_element_present("#timer-page-countdown"):
+                    before = sb.get_text("#timer-page-countdown") # Renew前剩余时间
+                else:
+                    check_screenshot = f"{self.screenshot_dir}/check.png"
+                    sb.save_screenshot(check_screenshot)
+                    self.send_telegram_notify("🎉FalixNodes 保活程序\n🖥️编号: {NUM}\n❌未检测到服务器运行剩余时间,服务器可能被关闭或正在重新启动", check_screenshot)
+                    return
 
                 # 3. 验证Cloudflare
                 self.log("⏳ 开始验证Cloudflare")
@@ -175,7 +181,7 @@ class FalixNodesRenewal:
                 self.log("✅ 全部流程执行完毕")
                 finish_screenshot = f"{self.screenshot_dir}/finish.png"
                 sb.save_screenshot(finish_screenshot)
-                self.send_telegram_notify(f"🎉 FalixNodes 保活成功\n🖥️ 编号: {NUM}\n🕒 保活前剩余运行时间: {before}\n🚀 保活后剩余运行时间: {after}", finish_screenshot)
+                self.send_telegram_notify(f"🎉FalixNodes 保活程序\n🖥️编号: {NUM}\n🕒保活前剩余运行时间: {before}\n🚀保活后剩余运行时间: {after}", finish_screenshot)
             
             except Exception as e:
                 self.log(f"❌ 运行异常: {e}")
