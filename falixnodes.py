@@ -24,13 +24,13 @@ from seleniumbase import SB
 PROXY_URL = os.getenv("PROXY", "")  # 代理
 EMAIL = os.getenv("EMAIL")  # 邮箱
 PASSWORD = os.getenv("PASSWORD")  # 密码
-SERVERNUM = os.getenv("SERVERNUM")  # 服务器编号
+NUM = os.getenv("NUM")  # 服务器编号
 TG_TOKEN = os.getenv("TG_TOKEN")  # tg通知token
 TG_CHAT_ID = os.getenv("TG_CHAT_ID")  # tg通知chat_id
 
 # 目标 URL
 LOGIN = "https://client.falixnodes.net/auth/login"
-TAGET = f"https://client.falixnodes.net/timer?id={SERVERNUM}"
+TAGET = f"https://client.falixnodes.net/timer?id={NUM}"
 # ===========================================
 
 class FalixNodesRenewal:
