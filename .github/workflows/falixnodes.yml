@@ -45,6 +45,8 @@ jobs:
       env:
         PYTHONIOENCODING: utf-8
         SERVERNUM: ${{ secrets.SERVERNUM }}
+        EMAIL: ${{ secrets.EMAIL }}
+        PASSWORD: ${{ secrets.PASSWORD }}
         TG_TOKEN: ${{ secrets.TG_TOKEN }}
         TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
         PROXY: socks5://127.0.0.1:8080
