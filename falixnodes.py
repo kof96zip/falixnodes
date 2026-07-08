@@ -19,7 +19,6 @@ print(f"[DEBUG] Env DISPLAY: {os.environ.get('DISPLAY')}")
 print(f"[DEBUG] Env XAUTHORITY: {os.environ.get('XAUTHORITY')}")
 
 from seleniumbase import SB
-from selenium.webdriver.common.by import By
 
 # ================= 配置区域 =================
 PROXY_URL = os.getenv("PROXY", "")  # 代理
@@ -112,15 +111,6 @@ class FalixNodesRenewal:
                 self.log("🔗 访问目标页面...")
                 sb.uc_open_with_reconnect(TAGET, reconnect_time=25)
                 time.sleep(5)
-
-                # 同意数据收集
-                frames = sb.driver.find_elements(By.TAG_NAME, "iframe")
-                for i, frame in enumerate(frames):
-                    print(i)
-                    print("src =", frame.get_attribute("src"))
-                    print("id =", frame.get_attribute("id"))
-                    print("name =", frame.get_attribute("name"))
-                    print("=" * 50)
 
                 before = sb.get_text("#timer-page-countdown") # Renew前剩余时间
 
