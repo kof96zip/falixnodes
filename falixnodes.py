@@ -134,9 +134,9 @@ class FalixNodesRenewal:
                         self.log("✅Cloudflare验证已通过")
                         break
 
-                taget_screenshot = f"{self.screenshot_dir}/taget.png"
-                sb.save_screenshot(taget_screenshot)
-                self.send_telegram_notify("✅访问保活页面并通过Cloudflare认证", taget_screenshot)
+                #taget_screenshot = f"{self.screenshot_dir}/taget.png"
+                #sb.save_screenshot(taget_screenshot)
+                #self.send_telegram_notify("✅访问保活页面并通过Cloudflare认证", taget_screenshot)
                 
                 # 4. 点击各种按钮
                 self.log("🖱️ 开始处理点击各种按钮")
@@ -148,9 +148,9 @@ class FalixNodesRenewal:
                 self.log("✅ 点击添加时间/Addtime完毕")
                 time.sleep(3)
 
-                addtime_screenshot = f"{self.screenshot_dir}/addtime.png"
-                sb.save_screenshot(addtime_screenshot)
-                self.send_telegram_notify("✅已点击addtime", addtime_screenshot)                
+                #addtime_screenshot = f"{self.screenshot_dir}/addtime.png"
+                #sb.save_screenshot(addtime_screenshot)
+                #self.send_telegram_notify("✅已点击addtime", addtime_screenshot)                
 
                 self.log("🖱️ 点击观看广告/WatchAD")
                 if sb.is_element_visible("#watchAdBtn"):
@@ -160,14 +160,11 @@ class FalixNodesRenewal:
                 time.sleep(15)
                 self.log("✅ 点击观看广告/WatchAD完毕")
 
-                watchad_screenshot = f"{self.screenshot_dir}/watchad.png"
-                sb.save_screenshot(watchad_screenshot)
-                self.send_telegram_notify("✅已点击watchad", addtime_screenshot)               
+                #watchad_screenshot = f"{self.screenshot_dir}/watchad.png"
+                #sb.save_screenshot(watchad_screenshot)
+                #self.send_telegram_notify("✅已点击watchad", addtime_screenshot)               
 
                 # 通常成功后会返回服务器面板登录页面,因为没有cookies
-                click_screenshot = f"{self.screenshot_dir}/click.png"
-                sb.save_screenshot(click_screenshot)
-                self.send_telegram_notify("✅访问页面并通过Cloudflare认证", click_screenshot)
 
                 # 5. 再次访问目标页面
                 self.log("🔗 再次访问目标页面...")
