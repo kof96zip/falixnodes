@@ -19,6 +19,7 @@ print(f"[DEBUG] Env DISPLAY: {os.environ.get('DISPLAY')}")
 print(f"[DEBUG] Env XAUTHORITY: {os.environ.get('XAUTHORITY')}")
 
 from seleniumbase import SB
+from selenium.webdriver.common.by import By
 
 # ================= 配置区域 =================
 PROXY_URL = os.getenv("PROXY", "")  # 代理
