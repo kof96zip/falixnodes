@@ -113,15 +113,13 @@ class FalixNodesRenewal:
                 time.sleep(5)
 
                 # 同意数据收集
-                frames = sb.find_elements("iframe")
-                print(len(frames))
+                frames = sb.driver.find_elements(By.TAG_NAME, "iframe")
                 for i, frame in enumerate(frames):
-                    sb.driver.switch_to.frame(frame)
-                    if sb.is_element_present('//button[contains(.,"Accept")]'):
-                        sb.click('//button[contains(.,"Accept")]')
-                        print("点击成功")
-                        break
-                    sb.driver.switch_to.default_content()
+                    print(i)
+                    print("src =", frame.get_attribute("src"))
+                    print("id =", frame.get_attribute("id"))
+                    print("name =", frame.get_attribute("name"))
+                    print("=" * 50)
 
                 before = sb.get_text("#timer-page-countdown") # Renew前剩余时间
 
