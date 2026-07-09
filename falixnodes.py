@@ -130,11 +130,11 @@ class FalixNodesRenewal:
                 ]
                 for i in range(10): # 尝试10次
                     sb.uc_gui_click_captcha()
-                    time.sleep(10)
+                    time.sleep(15)
                     page_lower = sb.get_page_source().lower()
                     if any(x in page_lower for x in cf_indicators):
                         sb.uc_gui_handle_captcha()
-                        time.sleep(10)
+                        time.sleep(15)
                         page_lower = sb.get_page_source().lower()
                     if not any(x in page_lower for x in cf_indicators):
                         self.log("✅Cloudflare验证已通过")
