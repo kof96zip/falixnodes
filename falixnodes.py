@@ -120,7 +120,25 @@ class FalixNodesRenewal:
                     self.send_telegram_notify("🎉FalixNodes 保活程序\n🖥️编号: {NUM}\n❌未检测到服务器运行剩余时间,服务器可能被关闭或正在重新启动", check_screenshot)
                     return
 
-
+                # 3. 验证Cloudflare
+                self.log("⏳ 开始验证Cloudflare")
+                cf_indicators = [
+                    "verify you are human",
+                    "确认您是真人",
+                    "troubleshoot",
+                    "just a moment"
+                ]
+                for i in range(10): # 尝试10次
+                    sb.uc_gui_click_captcha()
+                    time.sleep(10)
+                    page_lower = sb.get_page_source().lower()
+                    if any(x in page_lower for x in cf_indicators):
+                        sb.uc_gui_handle_captcha()
+                        time.sleep(10)
+                        page_lower = sb.get_page_source().lower()
+                    if not any(x in page_lower for x in cf_indicators):
+                        self.log("✅Cloudflare验证已通过")
+                        break
 
                 #taget_screenshot = f"{self.screenshot_dir}/taget.png"
                 #sb.save_screenshot(taget_screenshot)
