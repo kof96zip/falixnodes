@@ -120,25 +120,39 @@ class FalixNodesRenewal:
                     self.send_telegram_notify("🎉FalixNodes 保活程序\n🖥️编号: {NUM}\n❌未检测到服务器运行剩余时间,服务器可能被关闭或正在重新启动", check_screenshot)
                     return
 
-                # 3. 验证Cloudflare
-                self.log("⏳ 开始验证Cloudflare")
-                cf_indicators = [
-                    "verify you are human",
-                    "确认您是真人",
-                    "troubleshoot",
-                    "just a moment"
-                ]
-                for i in range(10): # 尝试10次
+                # 3. 验证Cloudflare,目前要过cf需要家宽ip
+                self.log("⏳ 开始Turnstile验证")
+                token = None
+                for i in range(2):
+                    self.log(f"第 {i+1} 次尝试")
+                    self.move_mouse_human(sb)
                     sb.uc_gui_click_captcha()
-                    time.sleep(30)
-                    page_lower = sb.get_page_source().lower()
-                    if any(x in page_lower for x in cf_indicators):
-                        sb.uc_gui_handle_captcha()
-                        time.sleep(30)
-                        page_lower = sb.get_page_source().lower()
-                    if not any(x in page_lower for x in cf_indicators):
-                        self.log("✅Cloudflare验证已通过")
+                    # 等待token
+                    for _ in range(15):
+                        time.sleep(10)
+                        token = sb.get_attribute('input[name="cf-turnstile-response"]',"value")
+                        if token:
+                            break
+                    if token:
+                        self.log("✅ Cloudflare Turnstile验证成功")
+                        print(f"Token length={len(token)}")
                         break
+                    self.log("⚠️ click后没有token，尝试handle")
+                    self.move_mouse_human(sb)
+                    sb.uc_gui_handle_captcha()
+                    time.sleep(10)
+                    # handle后再次检查
+                    token = sb.get_attribute('input[name="cf-turnstile-response"]',"value")
+                    if token:
+                        self.log("✅ handle后获取Token")
+                        break
+                if not token:
+                    self.log("❌ Cloudflare验证失败")
+                    cf_screenshot = f"{self.screenshot_dir}/cf_failed.png"
+                    sb.save_screenshot(cf_screenshot)
+                    self.send_telegram_notify("CF失败", cf_screenshot)
+                    return
+                self.log("🎉 CF验证完成")
 
                 #taget_screenshot = f"{self.screenshot_dir}/taget.png"
                 #sb.save_screenshot(taget_screenshot)
